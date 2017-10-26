@@ -19,6 +19,9 @@ export function createStore () {
         show: [],
         ask: [],
         job: []
+      },
+      item: {
+        
       }
     },
     actions,

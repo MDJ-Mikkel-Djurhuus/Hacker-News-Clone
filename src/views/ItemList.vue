@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { watchList } from "../api";
 import Item from "../components/Item.vue";
 export default {
   name: "item-list",
@@ -31,7 +30,6 @@ export default {
   },
   data() {
     return {
-      transition: "slide-right",
       displayedPage: Number(this.$route.params.page) || 1,
       displayedItems: this.$store.getters.activeItems
     };
@@ -73,7 +71,6 @@ export default {
   },
   methods: {
     loadItems(to = this.page, from = -1) {
-      this.$bar.start();
       this.$store
         .dispatch("FETCH_LIST_DATA", {
           type: this.type
@@ -83,11 +80,8 @@ export default {
             this.$router.replace(`/${this.type}/1`);
             return;
           }
-          this.transition =
-            from === -1 ? null : to > from ? "slide-left" : "slide-right";
           this.displayedPage = to;
           this.displayedItems = this.$store.getters.activeItems;
-          this.$bar.finish();
         });
     }
   }
