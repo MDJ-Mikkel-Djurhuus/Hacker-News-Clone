@@ -1,16 +1,15 @@
 FROM node:boron
 
 # Create app directory
-WORKDIR /usr/src/app
+RUN mkdir -p /website/src/app
 
-# Install app dependencies
-COPY package.json .
-
-RUN npm install
+WORKDIR /website/src/app
 
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+RUN npm install
 
 CMD [ "npm", "start" ]
+
+EXPOSE 8080

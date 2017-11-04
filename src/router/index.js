@@ -1,27 +1,57 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import List from '@/views/list-view'
+import User from '@/views/user-view'
+import Post from '@/views/post-view'
+import Login from '@/views/login-view'
+import New from '@/views/new-view'
 
 Vue.use(Router)
 
-// route-level code splitting
-const createListView = id => () => import('../js/CreateListView').then(m => m.default(id))
-const ItemView = () => import('../views/ItemView.vue')
-const UserView = () => import('../views/UserView.vue')
-
-export function createRouter () {
-  return new Router({
-    mode: 'history',
-    fallback: false,
-    scrollBehavior: () => ({ y: 0 }),
-    routes: [
-      { path: '/top/:page(\\d+)?', component: createListView('top') },
-      { path: '/new/:page(\\d+)?', component: createListView('new') },
-      { path: '/show/:page(\\d+)?', component: createListView('show') },
-      { path: '/ask/:page(\\d+)?', component: createListView('ask') },
-      { path: '/job/:page(\\d+)?', component: createListView('job') },
-      { path: '/item/:id(\\d+)', component: ItemView },
-      { path: '/user/:id', component: UserView },
-      { path: '/', redirect: '/top' }
+export default new Router({
+    routes: [{
+            path: '/list',
+            name: 'List',
+            component: List
+        },
+        {
+            path: '/new',
+            name: 'new',
+            component: New
+        },
+        {
+            path: '/post/:id',
+            name: 'post',
+            component: Post
+        },
+        {
+            path: '/user/:username',
+            name: 'user',
+            component: User
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/logout',
+            name: 'logout',
+            component: Login
+        },
+        {
+            path: '*',
+            redirect: "/list"
+        },
+        // {
+        //   path: '/comments/:username',
+        //   name: 'comments',
+        //   component: List
+        // },
+        // {
+        //   path: '/stories/:username',
+        //   name: 'stories',
+        //   component: List
+        // }
     ]
-  })
-}
+})
